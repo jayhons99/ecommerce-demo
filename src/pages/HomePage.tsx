@@ -1,6 +1,13 @@
-import { HeroHome } from "../components";
+import { HeroHome, Contact, FeaturedProducts, Services } from "../components";
 
 const HomePage = () => {
-  return <div>HomePage</div>;
+  return (
+    <main>
+      <HeroHome />
+      <FeaturedProducts />
+      <Services />
+      <Contact />
+    </main>
+  );
 };
 export default HomePage;
