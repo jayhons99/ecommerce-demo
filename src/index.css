@@ -18,4 +18,7 @@ body,
   .cart-button-wrapper {
     @apply hidden lg:grid;
   }
+  .form-input {
+    @apply border-r-0 text-green-950/70 rounded-md indent-2 mt-4 py-2;
+  }
 }
