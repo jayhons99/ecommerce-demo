@@ -1,6 +1,6 @@
 import { FaShoppingCart, FaUserMinus, FaUserPlus } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import { useProductsContext } from "../context/ProductsContext";
+import { useProductsContext } from "../hooks";
 
 const CartButtons = () => {
   const { closeSidebar } = useProductsContext();

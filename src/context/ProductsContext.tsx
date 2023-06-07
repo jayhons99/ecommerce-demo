@@ -1,23 +1,37 @@
-/* eslint-disable react-refresh/only-export-components */
-import { createContext, useContext, useReducer } from "react";
+import { createContext, useReducer, useEffect } from "react";
+import axios from "axios";
 import productsReducer from "../reducers/ProductsReducer";
-import { SIDEBAR_CLOSE, SIDEBAR_OPEN } from "../actions";
+import {
+  SIDEBAR_CLOSE,
+  SIDEBAR_OPEN,
+  GET_PRODUCTS_BEGIN,
+  GET_PRODUCTS_SUCCESS,
+} from "../actions";
+import { products_url as allProductsUrl } from "../utils/constants";
 
 interface ProductsContextProps {
   children: React.ReactNode;
 }
 
-interface ProductContextType {
+export interface ProductContextType {
   isSidebarOpen: boolean;
   openSidebar?: React.Dispatch<unknown>;
   closeSidebar?: React.Dispatch<unknown>;
+  allProductsLoading: boolean;
+  allProductsError: boolean;
+  allProducts: object[];
+  featuredProducts: object[];
 }
 
 const initialState = {
   isSidebarOpen: false,
+  allProductsLoading: false,
+  allProductsError: false,
+  allProducts: [],
+  featuredProducts: [],
 };
 
-const ProductsContext = createContext<ProductContextType>(initialState);
+export const ProductsContext = createContext<ProductContextType>(initialState);
 
 export const ProductsContextProvider: React.FC<ProductsContextProps> = ({
   children,
@@ -33,13 +47,27 @@ export const ProductsContextProvider: React.FC<ProductsContextProps> = ({
       type: SIDEBAR_OPEN,
     });
   };
+  // fetch all products
+  const fetchAllProducts = async (url: string) => {
+    dispatch({
+      type: GET_PRODUCTS_BEGIN,
+    });
+    try {
+      const { data } = await axios.get(url);
+      dispatch({
+        type: GET_PRODUCTS_SUCCESS,
+        payload: data,
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  useEffect(() => {
+    fetchAllProducts(allProductsUrl);
+  }, []);
   return (
     <ProductsContext.Provider value={{ ...state, openSidebar, closeSidebar }}>
       {children}
     </ProductsContext.Provider>
   );
-};
-
-export const useProductsContext: () => ProductContextType = () => {
-  return useContext(ProductsContext);
 };

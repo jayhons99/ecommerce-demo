@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { FaTimes } from "react-icons/fa";
 import { links } from "../utils/constants";
-import { useProductsContext } from "../context/ProductsContext";
+import { useProductsContext } from "../hooks";
 
 import logo from "../assets/logo.svg";
 import CartButtons from "./CartButtons";

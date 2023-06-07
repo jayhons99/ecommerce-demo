@@ -38,3 +38,6 @@ export const services = [
     text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
   },
 ];
+
+export const products_url = "https://course-api.com/react-store-products";
+export const single_products_url = `https://course-api.com/react-store-single-product?id=`;

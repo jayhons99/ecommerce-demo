@@ -9,7 +9,10 @@ import {
   GET_SINGLE_PRODUCT_ERROR,
 } from "../actions";
 
-const productsReducer = (state: any, action: { type: string }) => {
+const productsReducer = (
+  state: any,
+  action: { type: string; payload?: any }
+) => {
   if (action.type === SIDEBAR_OPEN) {
     return {
       ...state,
@@ -20,6 +23,19 @@ const productsReducer = (state: any, action: { type: string }) => {
     return {
       ...state,
       isSidebarOpen: false,
+    };
+  }
+  if (action.type === GET_PRODUCTS_BEGIN) {
+    return {
+      ...state,
+      allProductsLoading: true,
+    };
+  }
+  if (action.type === GET_PRODUCTS_SUCCESS) {
+    return {
+      ...state,
+      allProductsLoading: false,
+      allProducts: action.payload,
     };
   }
 };
