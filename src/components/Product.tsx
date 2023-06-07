@@ -20,7 +20,7 @@ const Product: React.FC<ProductProps> = ({ id, image, name, price }) => {
             className="w-full block object-cover h-[225px] rounded-md transition-all group-hover:opacity-50"
           />
           <Link
-            to={`/products/:${id}`}
+            to={`/products/${id}`}
             className="absolute group-hover:opacity-100 top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] bg-green-300/60 flex items-center justify-center w-10 h-10 rounded-md transition-all opacity-0 cursor-pointer"
           >
             <FaSearch className="text-xl text-white/80" />

@@ -8,6 +8,9 @@ import {
   GET_PRODUCTS_BEGIN,
   GET_PRODUCTS_SUCCESS,
   GET_PRODUCTS_ERROR,
+  GET_SINGLE_PRODUCT_BEGIN,
+  GET_SINGLE_PRODUCT_ERROR,
+  GET_SINGLE_PRODUCT_SUCCESS,
 } from "../actions";
 import { products_url as allProductsUrl } from "../utils/constants";
 
@@ -19,10 +22,14 @@ export interface ProductContextType {
   isSidebarOpen: boolean;
   openSidebar?: React.Dispatch<unknown>;
   closeSidebar?: React.Dispatch<unknown>;
+  fetchSingleProduct?: (url: string) => Promise<void>;
   allProductsLoading: boolean;
   allProductsError: boolean;
   allProducts: any[];
   featuredProducts: any[];
+  singleProductLoading: boolean;
+  singleProductError: boolean;
+  singleProduct: any;
 }
 
 const initialState = {
@@ -31,6 +38,9 @@ const initialState = {
   allProductsError: false,
   allProducts: [],
   featuredProducts: [],
+  singleProductLoading: false,
+  singleProductError: false,
+  singleProduct: {},
 };
 
 export const ProductsContext = createContext<ProductContextType>(initialState);
@@ -50,7 +60,9 @@ export const ProductsContextProvider: React.FC<ProductsContextProps> = ({
     });
   };
   // fetch all products
-  const fetchAllProducts = async (url: string) => {
+  const fetchAllProducts: (url: string) => Promise<void> = async (
+    url: string
+  ) => {
     dispatch({
       type: GET_PRODUCTS_BEGIN,
     });
@@ -66,11 +78,32 @@ export const ProductsContextProvider: React.FC<ProductsContextProps> = ({
       });
     }
   };
+  // fetch single product
+  const fetchSingleProduct: (url: string) => Promise<void> = async (
+    url: string
+  ) => {
+    dispatch({
+      type: GET_SINGLE_PRODUCT_BEGIN,
+    });
+    try {
+      const { data } = await axios.get(url);
+      dispatch({
+        type: GET_SINGLE_PRODUCT_SUCCESS,
+        payload: data,
+      });
+    } catch (error) {
+      dispatch({
+        type: GET_SINGLE_PRODUCT_ERROR,
+      });
+    }
+  };
   useEffect(() => {
     fetchAllProducts(allProductsUrl);
   }, []);
   return (
-    <ProductsContext.Provider value={{ ...state, openSidebar, closeSidebar }}>
+    <ProductsContext.Provider
+      value={{ ...state, openSidebar, closeSidebar, fetchSingleProduct }}
+    >
       {children}
     </ProductsContext.Provider>
   );

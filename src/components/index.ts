@@ -7,6 +7,10 @@ import Contact from "./Contact";
 import FeaturedProducts from "./FeaturedProducts";
 import Services from "./Services";
 import ScrollToTop from "./ScrollToTop";
+import Loading from "./Loading";
+import Error from "./Error";
+import ProductImages from "./ProductImages";
+import Stars from "./Stars";
 
 export {
   Navbar,
@@ -18,4 +22,8 @@ export {
   Contact,
   Services,
   ScrollToTop,
+  Loading,
+  Error,
+  ProductImages,
+  Stars,
 };
