@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { createContext, useReducer, useEffect } from "react";
 import axios from "axios";
 import productsReducer from "../reducers/ProductsReducer";
@@ -6,6 +7,7 @@ import {
   SIDEBAR_OPEN,
   GET_PRODUCTS_BEGIN,
   GET_PRODUCTS_SUCCESS,
+  GET_PRODUCTS_ERROR,
 } from "../actions";
 import { products_url as allProductsUrl } from "../utils/constants";
 
@@ -19,8 +21,8 @@ export interface ProductContextType {
   closeSidebar?: React.Dispatch<unknown>;
   allProductsLoading: boolean;
   allProductsError: boolean;
-  allProducts: object[];
-  featuredProducts: object[];
+  allProducts: any[];
+  featuredProducts: any[];
 }
 
 const initialState = {
@@ -59,7 +61,9 @@ export const ProductsContextProvider: React.FC<ProductsContextProps> = ({
         payload: data,
       });
     } catch (error) {
-      console.error(error);
+      dispatch({
+        type: GET_PRODUCTS_ERROR,
+      });
     }
   };
   useEffect(() => {

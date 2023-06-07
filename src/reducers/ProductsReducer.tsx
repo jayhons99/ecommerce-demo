@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import {
   SIDEBAR_OPEN,
   SIDEBAR_CLOSE,
@@ -32,10 +33,21 @@ const productsReducer = (
     };
   }
   if (action.type === GET_PRODUCTS_SUCCESS) {
+    const featured = action.payload.filter(
+      (product: any) => product.featured === true
+    );
     return {
       ...state,
       allProductsLoading: false,
       allProducts: action.payload,
+      featuredProducts: featured,
+    };
+  }
+  if (action.type === GET_PRODUCTS_ERROR) {
+    return {
+      ...state,
+      allProductsLoading: false,
+      allProductsError: true,
     };
   }
 };
