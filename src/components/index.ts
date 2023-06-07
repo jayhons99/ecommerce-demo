@@ -6,6 +6,7 @@ import HeroHome from "./HeroHome";
 import Contact from "./Contact";
 import FeaturedProducts from "./FeaturedProducts";
 import Services from "./Services";
+import ScrollToTop from "./ScrollToTop";
 
 export {
   Navbar,
@@ -16,4 +17,5 @@ export {
   FeaturedProducts,
   Contact,
   Services,
+  ScrollToTop,
 };

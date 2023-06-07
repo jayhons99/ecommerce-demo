@@ -10,7 +10,7 @@ const Navbar = () => {
   const { openSidebar } = useProductsContext();
   return (
     <>
-      <div className="h-20 flex items-center justify-center">
+      <div className="h-20 sticky top-0 z-[999] bg-primary flex items-center justify-center">
         <div className="w-[90vw] my-0 mx-auto lg:grid lg:grid-flow-col lg:auto-cols-fr lg:items-center">
           <div className="flex items-center justify-between">
             <Link to="/">

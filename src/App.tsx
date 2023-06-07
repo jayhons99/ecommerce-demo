@@ -10,12 +10,13 @@ import {
   CheckoutPage,
   PrivateRoute,
 } from "./pages";
-import { Navbar, Footer, Sidebar } from "./components";
+import { Navbar, Footer, Sidebar, ScrollToTop } from "./components";
 
 function App() {
   return (
     <>
       <BrowserRouter>
+        <ScrollToTop />
         <Navbar />
         <Sidebar />
         <Routes>
