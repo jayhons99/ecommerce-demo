@@ -6,7 +6,7 @@ const AboutPage = () => {
   return (
     <main>
       <PageHero title="About" />
-      <div className="grid gap-16 lg:grid-cols-2 min-h-[calc(100vh-(20vh+10rem))] py-20 w-[90vw] my-0 mx-auto w-max-[1170px]">
+      <div className="grid gap-16 lg:grid-cols-2 min-h-[calc(100vh-(20vh+10rem))] py-20 w-[90vw] my-0 mx-auto w-max-[1170px] lg:w-[95vw]">
         <img
           src={aboutImg}
           alt="Photo by cottonbro studio"

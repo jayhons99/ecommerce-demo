@@ -8,7 +8,7 @@ interface PageHeroProps {
 const PageHero: React.FC<PageHeroProps> = ({ title }) => {
   return (
     <div className="bg-green-950/90 w-full min-h-[20vh] flex items-center">
-      <div className="w-[90vw] my-0 mx-auto max-w-[1170px]">
+      <div className="w-[90vw] my-0 mx-auto max-w-[1170px] lg:max-w-[61vw]">
         <h1 className="flex items-center gap-1">
           <Link
             to="/"
