@@ -27,14 +27,16 @@ const AddToCart: React.FC<Product> = ({ id, stock, colors }) => {
         <span className="font-bold">Colors:</span>
         <div className="flex">
           {colors.map((color, i) => {
-            const bgColor = `bg-[${color}]`;
             return (
               <button
                 key={i}
-                className={`w-6 h-6 ${bgColor} ${
+                className={`w-6 h-6 ${
                   mainColor === colors[i] ? "opacity-100" : null
                 } rounded-full mr-2 border-none cursor-pointer opacity-50 flex items-center justify-center`}
                 onClick={() => setMainColor(colors[i])}
+                style={{
+                  backgroundColor: color,
+                }}
               >
                 {mainColor === color ? (
                   <FaCheck className="text-white" />
