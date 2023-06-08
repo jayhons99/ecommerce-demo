@@ -51,7 +51,6 @@ const SingleProductPage = () => {
     company,
     images,
   } = product;
-  console.log(product);
   return (
     <>
       <PageHero title={name} product={true} />

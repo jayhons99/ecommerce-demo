@@ -42,6 +42,7 @@ const initialState = {
   singleProduct: {
     id: "",
     name: "",
+    colors: [],
     price: 0,
     description: "",
     stock: 0,

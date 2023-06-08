@@ -10,7 +10,7 @@ export interface ProductImage {
 
 export interface Product {
   id: string;
-  colors?: string[];
+  colors: string[];
   name: string;
   price: number;
   description: string;
