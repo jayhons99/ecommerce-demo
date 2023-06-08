@@ -4,7 +4,14 @@ import { useParams, Link, useNavigate } from "react-router-dom";
 import { single_products_url as url } from "../utils/constants";
 import { formatPrice } from "../utils/helpers";
 import { useProductsContext } from "../hooks";
-import { Loading, Error, PageHero, ProductImages, Stars } from "../components";
+import {
+  Loading,
+  Error,
+  PageHero,
+  ProductImages,
+  Stars,
+  AddToCart,
+} from "../components";
 
 const SingleProductPage = () => {
   const { id } = useParams();
@@ -19,6 +26,7 @@ const SingleProductPage = () => {
   useEffect(() => {
     fetchSingleProduct && fetchSingleProduct(`${url}${id}`);
   }, [id]);
+  // redirect to home page on error loads
   useEffect(() => {
     if (error) {
       setTimeout(() => {
@@ -60,9 +68,24 @@ const SingleProductPage = () => {
               {name}
             </h1>
             <Stars />
-            <h1 className="text-green-700/80 font-semibold">
+            <h1 className="text-green-700/80 font-semibold text-xl">
               {formatPrice(price)}
             </h1>
+            <p className="max-w-[42rem] leading-8">{description}</p>
+            <p className="capitalize w-[300px] grid grid-cols-[125px,1fr]">
+              <span className="font-bold">Available: </span>
+              {stock > 0 ? "In stock" : "Out of stock"}
+            </p>
+            <p className="capitalize w-[300px] grid grid-cols-[125px,1fr]">
+              <span className="font-bold">SKU: </span>
+              {sku}
+            </p>
+            <p className="capitalize w-[300px] grid grid-cols-[125px,1fr]">
+              <span className="font-bold">Brand: </span>
+              {company}
+            </p>
+            <hr className="border-green-950 mt-4" />
+            {stock > 0 && <AddToCart />}
           </section>
         </div>
       </div>
