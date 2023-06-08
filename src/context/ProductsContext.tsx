@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { createContext, useReducer, useEffect } from "react";
 import axios from "axios";
 import productsReducer from "../reducers/ProductsReducer";
@@ -13,7 +12,7 @@ import {
   GET_SINGLE_PRODUCT_SUCCESS,
 } from "../actions";
 import { products_url as allProductsUrl } from "../utils/constants";
-
+import { Product } from "../types";
 interface ProductsContextProps {
   children: React.ReactNode;
 }
@@ -25,11 +24,11 @@ export interface ProductContextType {
   fetchSingleProduct?: (url: string) => Promise<void>;
   allProductsLoading: boolean;
   allProductsError: boolean;
-  allProducts: any[];
-  featuredProducts: any[];
+  allProducts: Product[];
+  featuredProducts: Product[];
   singleProductLoading: boolean;
   singleProductError: boolean;
-  singleProduct: any;
+  singleProduct: Product;
 }
 
 const initialState = {
@@ -40,7 +39,17 @@ const initialState = {
   featuredProducts: [],
   singleProductLoading: false,
   singleProductError: false,
-  singleProduct: {},
+  singleProduct: {
+    id: "",
+    name: "",
+    price: 0,
+    description: "",
+    stock: 0,
+    stars: 0,
+    reviews: 0,
+    company: "",
+    images: [],
+  },
 };
 
 export const ProductsContext = createContext<ProductContextType>(initialState);
