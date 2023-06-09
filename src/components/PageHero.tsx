@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 interface PageHeroProps {
   title: string;
-  product: boolean;
+  product?: boolean;
 }
 
 const PageHero: React.FC<PageHeroProps> = ({ title, product }) => {
