@@ -18,5 +18,5 @@ export interface Product {
   stars: number;
   reviews: number;
   company: string;
-  images: ProductImage[];
+  image: string;
 }

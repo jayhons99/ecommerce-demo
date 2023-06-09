@@ -20,13 +20,13 @@ interface FiltersContextProps {
 interface FilterContextType {
   filteredProducts: Product[];
   allProducts: Product[];
-  gridView: false;
+  gridView: boolean;
 }
 
 const initialState: FilterContextType = {
   filteredProducts: [],
   allProducts: [],
-  gridView: false,
+  gridView: true,
 };
 
 export const FilterContext = createContext(initialState);
