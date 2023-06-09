@@ -27,7 +27,7 @@ const initialState: FilterContextType = {
   allProducts: [],
 };
 
-const FilterContext = createContext(initialState);
+export const FilterContext = createContext(initialState);
 
 export const FilterContextProvider: React.FC<FiltersContextProps> = ({
   children,

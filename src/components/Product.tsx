@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 interface ProductProps {
   id: string;
-  image: string;
+  image?: string;
   name: string;
   price: number;
 }
