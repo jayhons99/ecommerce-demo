@@ -18,6 +18,20 @@ const FilterReducer = (state: any, action: { type: string; payload?: any }) => {
       filteredProducts: [...action.payload],
     };
   }
+
+  if (action.type === SET_GRIDVIEW) {
+    return {
+      ...state,
+      gridView: true,
+    };
+  }
+
+  if (action.type === SET_LISTVIEW) {
+    return {
+      ...state,
+      gridView: false,
+    };
+  }
 };
 
 export default FilterReducer;

@@ -49,7 +49,7 @@ const initialState = {
     stars: 0,
     reviews: 0,
     company: "",
-    images: [],
+    image: "",
   },
 };
 

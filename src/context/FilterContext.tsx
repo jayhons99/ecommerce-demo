@@ -21,6 +21,8 @@ interface FilterContextType {
   filteredProducts: Product[];
   allProducts: Product[];
   gridView: boolean;
+  displayGrid?: () => void;
+  displayList?: () => void;
 }
 
 const initialState: FilterContextType = {
@@ -39,9 +41,18 @@ export const FilterContextProvider: React.FC<FiltersContextProps> = ({
   useEffect(() => {
     dispatch({ type: LOAD_PRODUCTS, payload: allProducts });
   }, [allProducts]);
-
+  const displayGrid = () => {
+    dispatch({
+      type: SET_GRIDVIEW,
+    });
+  };
+  const displayList = () => {
+    dispatch({
+      type: SET_LISTVIEW,
+    });
+  };
   return (
-    <FilterContext.Provider value={{ ...state }}>
+    <FilterContext.Provider value={{ ...state, displayGrid, displayList }}>
       {children}
     </FilterContext.Provider>
   );
