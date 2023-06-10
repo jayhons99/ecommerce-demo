@@ -39,6 +39,27 @@ const FilterReducer = (state: any, action: { type: string; payload?: any }) => {
       sort: action.payload,
     };
   }
+
+  if (action.type === SORT_PRODUCTS) {
+    const { sort, filteredProducts } = state;
+    let temp = [...filteredProducts];
+    if (sort === "lowestPrice") {
+      temp = temp.sort((a, b) => a.price - b.price);
+    }
+    if (sort === "highestPrice") {
+      temp = temp.sort((a, b) => b.price - a.price);
+    }
+    if (sort === "nameFromA") {
+      temp = temp.sort((a, b) => a.name.localeCompare(b.name));
+    }
+    if (sort === "nameFromZ") {
+      temp = temp.sort((a, b) => b.name.localeCompare(a.name));
+    }
+    return {
+      ...state,
+      filteredProducts: temp,
+    };
+  }
 };
 
 export default FilterReducer;

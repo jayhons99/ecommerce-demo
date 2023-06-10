@@ -17,9 +17,9 @@ interface FiltersContextProps {
   children: React.ReactNode;
 }
 
-interface FilterContextType {
+export interface FilterContextType {
   filteredProducts: Product[];
-  allProducts: Product[];
+  products: Product[];
   gridView: boolean;
   displayGrid?: () => void;
   displayList?: () => void;
@@ -29,7 +29,7 @@ interface FilterContextType {
 
 const initialState: FilterContextType = {
   filteredProducts: [],
-  allProducts: [],
+  products: [],
   gridView: true,
   sort: "lowestPrice",
 };
@@ -44,6 +44,12 @@ export const FilterContextProvider: React.FC<FiltersContextProps> = ({
   useEffect(() => {
     dispatch({ type: LOAD_PRODUCTS, payload: allProducts });
   }, [allProducts]);
+
+  useEffect(() => {
+    dispatch({
+      type: SORT_PRODUCTS,
+    });
+  }, [allProducts, state.sort]);
   const displayGrid = () => {
     dispatch({
       type: SET_GRIDVIEW,
