@@ -32,6 +32,13 @@ const FilterReducer = (state: any, action: { type: string; payload?: any }) => {
       gridView: false,
     };
   }
+
+  if (action.type === UPDATE_SORT) {
+    return {
+      ...state,
+      sort: action.payload,
+    };
+  }
 };
 
 export default FilterReducer;

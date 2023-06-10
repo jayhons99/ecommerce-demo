@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { ProductImage } from "../types";
 interface ProductImagesProps {
-  images: ProductImage[];
+  images?: ProductImage[];
 }
 
 const ProductImages: React.FC<ProductImagesProps> = ({ images = [] }) => {

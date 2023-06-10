@@ -23,12 +23,15 @@ interface FilterContextType {
   gridView: boolean;
   displayGrid?: () => void;
   displayList?: () => void;
+  updateSort?: (e: React.ChangeEvent<HTMLSelectElement>) => void;
+  sort?: string;
 }
 
 const initialState: FilterContextType = {
   filteredProducts: [],
   allProducts: [],
   gridView: true,
+  sort: "lowestPrice",
 };
 
 export const FilterContext = createContext(initialState);
@@ -51,8 +54,18 @@ export const FilterContextProvider: React.FC<FiltersContextProps> = ({
       type: SET_LISTVIEW,
     });
   };
+  const updateSort = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const name = e.target.name;
+    const value = e.target.value;
+    dispatch({
+      type: UPDATE_SORT,
+      payload: value,
+    });
+  };
   return (
-    <FilterContext.Provider value={{ ...state, displayGrid, displayList }}>
+    <FilterContext.Provider
+      value={{ ...state, displayGrid, displayList, updateSort }}
+    >
       {children}
     </FilterContext.Provider>
   );

@@ -21,4 +21,10 @@ body,
   .form-input {
     @apply border-r-0 text-green-950/70 rounded-md indent-2 mt-4 py-2;
   }
+  .sort-button {
+    @apply bg-transparent  w-6 flex items-center justify-center cursor-pointer transition-all hover:scale-125;
+  }
+  .active {
+    @apply border-solid border-[1px] border-black/80 bg-green-950/80 text-green-300 rounded-md;
+  }
 }

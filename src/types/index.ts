@@ -19,4 +19,5 @@ export interface Product {
   reviews: number;
   company: string;
   image: string;
+  images?: ProductImage[];
 }
