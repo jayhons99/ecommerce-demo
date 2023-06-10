@@ -10,6 +10,7 @@ import {
   CLEAR_FILTERS,
 } from "../actions";
 import { Product } from "../types";
+// import { matchString } from "../utils/helpers";
 
 const FilterReducer = (state: any, action: { type: string; payload?: any }) => {
   if (action.type === LOAD_PRODUCTS) {
@@ -19,6 +20,10 @@ const FilterReducer = (state: any, action: { type: string; payload?: any }) => {
       ...state,
       allProducts: [...action.payload],
       filteredProducts: [...action.payload],
+      filters: {
+        ...state.filters,
+        maxPrice: max,
+      },
     };
   }
 
@@ -61,6 +66,25 @@ const FilterReducer = (state: any, action: { type: string; payload?: any }) => {
     return {
       ...state,
       filteredProducts: temp,
+    };
+  }
+
+  if (action.type === UPDATE_FILTERS) {
+    const { name, value } = action.payload;
+    return {
+      ...state,
+      filters: {
+        ...state.filters,
+        [name]: value,
+      },
+    };
+  }
+
+  if (action.type === FILTER_PRODUCTS) {
+    const { allProducts, filters } = state;
+    console.log(`${filters.text}`);
+    return {
+      ...state,
     };
   }
 };

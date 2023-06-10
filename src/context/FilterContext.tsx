@@ -46,10 +46,12 @@ export const FilterContextProvider: React.FC<FiltersContextProps> = ({
   }, [allProducts]);
 
   useEffect(() => {
+    dispatch({ type: FILTER_PRODUCTS });
     dispatch({
       type: SORT_PRODUCTS,
     });
-  }, [allProducts, state.sort]);
+  }, [allProducts, state.sort, state.filters]);
+
   const displayGrid = () => {
     dispatch({
       type: SET_GRIDVIEW,
@@ -61,16 +63,36 @@ export const FilterContextProvider: React.FC<FiltersContextProps> = ({
     });
   };
   const updateSort = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const name = e.target.name;
+    // const name = e.target.name;
     const value = e.target.value;
     dispatch({
       type: UPDATE_SORT,
       payload: value,
     });
   };
+  const updateFilters = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    dispatch({
+      type: UPDATE_FILTERS,
+      payload: {
+        name,
+        value,
+      },
+    });
+  };
+  const clearFilters = () => {
+    console.log("hi");
+  };
   return (
     <FilterContext.Provider
-      value={{ ...state, displayGrid, displayList, updateSort }}
+      value={{
+        ...state,
+        displayGrid,
+        displayList,
+        updateSort,
+        updateFilters,
+        clearFilters,
+      }}
     >
       {children}
     </FilterContext.Provider>

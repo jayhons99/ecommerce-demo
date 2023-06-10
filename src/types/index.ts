@@ -29,6 +29,8 @@ export interface FilterContextType {
   displayGrid?: () => void;
   displayList?: () => void;
   updateSort?: (e: React.ChangeEvent<HTMLSelectElement>) => void;
+  updateFilters?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  clearFilters?: () => void;
   sort?: string;
   filters?: {
     text: string;
