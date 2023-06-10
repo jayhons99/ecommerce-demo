@@ -9,9 +9,12 @@ import {
   FILTER_PRODUCTS,
   CLEAR_FILTERS,
 } from "../actions";
+import { Product } from "../types";
 
 const FilterReducer = (state: any, action: { type: string; payload?: any }) => {
   if (action.type === LOAD_PRODUCTS) {
+    let max = action.payload.map((product: Product) => product.price);
+    max = Math.max(...max);
     return {
       ...state,
       allProducts: [...action.payload],

@@ -21,3 +21,37 @@ export interface Product {
   image: string;
   images?: ProductImage[];
 }
+
+export interface FilterContextType {
+  filteredProducts: Product[];
+  products: Product[];
+  gridView: boolean;
+  displayGrid?: () => void;
+  displayList?: () => void;
+  updateSort?: (e: React.ChangeEvent<HTMLSelectElement>) => void;
+  sort?: string;
+  filters?: {
+    text: string;
+    company: string;
+    category: string;
+    color: string;
+    minPrice: number;
+    maxPrice: number;
+    price: number;
+    shipping: boolean;
+  };
+}
+
+export interface ProductContextType {
+  isSidebarOpen: boolean;
+  openSidebar?: React.Dispatch<unknown>;
+  closeSidebar?: React.Dispatch<unknown>;
+  fetchSingleProduct?: (url: string) => Promise<void>;
+  allProductsLoading: boolean;
+  allProductsError: boolean;
+  allProducts: Product[];
+  featuredProducts: Product[];
+  singleProductLoading: boolean;
+  singleProductError: boolean;
+  singleProduct: Product;
+}

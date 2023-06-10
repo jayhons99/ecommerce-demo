@@ -12,23 +12,9 @@ import {
   GET_SINGLE_PRODUCT_SUCCESS,
 } from "../actions";
 import { products_url as allProductsUrl } from "../utils/constants";
-import { Product } from "../types";
+import { ProductContextType } from "../types";
 interface ProductsContextProps {
   children: React.ReactNode;
-}
-
-export interface ProductContextType {
-  isSidebarOpen: boolean;
-  openSidebar?: React.Dispatch<unknown>;
-  closeSidebar?: React.Dispatch<unknown>;
-  fetchSingleProduct?: (url: string) => Promise<void>;
-  allProductsLoading: boolean;
-  allProductsError: boolean;
-  allProducts: Product[];
-  featuredProducts: Product[];
-  singleProductLoading: boolean;
-  singleProductError: boolean;
-  singleProduct: Product;
 }
 
 const initialState = {

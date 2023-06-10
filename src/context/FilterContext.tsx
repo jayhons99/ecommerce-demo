@@ -1,7 +1,7 @@
 import { createContext, useEffect, useReducer } from "react";
 import { useProductsContext } from "../hooks";
-import { Product } from "../types";
 import reducer from "../reducers/FilterReducer";
+import { FilterContextType } from "../types";
 import {
   LOAD_PRODUCTS,
   SET_GRIDVIEW,
@@ -17,21 +17,21 @@ interface FiltersContextProps {
   children: React.ReactNode;
 }
 
-export interface FilterContextType {
-  filteredProducts: Product[];
-  products: Product[];
-  gridView: boolean;
-  displayGrid?: () => void;
-  displayList?: () => void;
-  updateSort?: (e: React.ChangeEvent<HTMLSelectElement>) => void;
-  sort?: string;
-}
-
 const initialState: FilterContextType = {
   filteredProducts: [],
   products: [],
   gridView: true,
   sort: "lowestPrice",
+  filters: {
+    text: "",
+    company: "all",
+    category: "all",
+    color: "all",
+    minPrice: 0,
+    maxPrice: 0,
+    price: 0,
+    shipping: false,
+  },
 };
 
 export const FilterContext = createContext(initialState);
