@@ -1,4 +1,11 @@
-import { createContext, useEffect, useReducer } from "react";
+import {
+  ChangeEvent,
+  ChangeEventHandler,
+  MouseEventHandler,
+  createContext,
+  useEffect,
+  useReducer,
+} from "react";
 import { useProductsContext } from "../hooks";
 import reducer from "../reducers/FilterReducer";
 import { FilterContextType } from "../types";
@@ -70,8 +77,12 @@ export const FilterContextProvider: React.FC<FiltersContextProps> = ({
       payload: value,
     });
   };
-  const updateFilters = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
+  const updateFilters = (e: ChangeEvent<HTMLInputElement>) => {
+    const name = e.target.name;
+    let value;
+    if (e.target.name === "category") {
+      value = e.target.textContent;
+    }
     dispatch({
       type: UPDATE_FILTERS,
       payload: {

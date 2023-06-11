@@ -18,7 +18,7 @@ const FilterReducer = (state: any, action: { type: string; payload?: any }) => {
     max = Math.max(...max);
     return {
       ...state,
-      allProducts: [...action.payload],
+      products: [...action.payload],
       filteredProducts: [...action.payload],
       filters: {
         ...state.filters,
@@ -81,10 +81,13 @@ const FilterReducer = (state: any, action: { type: string; payload?: any }) => {
   }
 
   if (action.type === FILTER_PRODUCTS) {
-    const { allProducts, filters } = state;
-    console.log(`${filters.text}`);
+    const { products, filters } = state;
+    let temp = [...products];
+    temp = products.filter((p: Product) => p?.category === filters.category);
+    console.log(temp);
     return {
       ...state,
+      filteredProducts: temp,
     };
   }
 };

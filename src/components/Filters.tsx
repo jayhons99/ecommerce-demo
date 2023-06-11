@@ -1,10 +1,15 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { FaCheck } from "react-icons/fa";
 import { useFilterContext } from "../hooks";
-import { formatPrice } from "../utils/helpers";
+import { formatPrice, getUniqueValues } from "../utils/helpers";
+import { MouseEventHandler } from "react";
 
 const Filters = () => {
   const { filters, updateFilters, clearFilters, products } = useFilterContext();
+  const categories = getUniqueValues(products, "category");
+  const companies = getUniqueValues(products, "company");
+  const colors = getUniqueValues(products, "colors");
   return (
     <>
       <div className="lg:sticky lg:top-4">
@@ -19,6 +24,29 @@ const Filters = () => {
               value={filters?.text}
               onChange={updateFilters}
             />
+          </div>
+          {/* categories */}
+          <div className="mb-5">
+            <h1 className="font-semibold tracking-wide">Category</h1>
+            <div>
+              {categories.map((cat: any, i) => {
+                return (
+                  <button
+                    key={i}
+                    className={`${
+                      filters?.category === cat.toLowerCase()
+                        ? "border-b-2 border-green-950"
+                        : "border-none"
+                    } capitalize block my-1 mx-0 py-1 px-0 bg-transparent tracking-wide text-green-950`}
+                    onClick={updateFilters}
+                    name="category"
+                    type="button"
+                  >
+                    {cat as string}
+                  </button>
+                );
+              })}
+            </div>
           </div>
         </form>
       </div>

@@ -1,4 +1,3 @@
-// import Fuse from "fuse.js";
 import { Product } from "../types";
 
 export const formatPrice: (price: number) => string = (price: number) => {
@@ -9,13 +8,10 @@ export const formatPrice: (price: number) => string = (price: number) => {
   return formatted;
 };
 
-// export const matchString: (
-//   products: Product[],
-//   pattern: string
-// ) => Fuse.FuseResult<Product>[] = (products: Product[], pattern: string) => {
-//   const options = {
-//     keys: ["name"],
-//   };
-//   const fuse = new Fuse(products, options);
-//   return fuse.search(pattern);
-// };
+export const getUniqueValues = (data: Product[], type: string) => {
+  let unique = data.map((product) => product[type as keyof Product]);
+  if (type === "colors") {
+    unique = unique.flat() as any;
+  }
+  return ["all", ...new Set(unique)];
+};
