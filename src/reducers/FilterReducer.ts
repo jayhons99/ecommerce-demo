@@ -71,6 +71,7 @@ const FilterReducer = (state: any, action: { type: string; payload?: any }) => {
 
   if (action.type === UPDATE_FILTERS) {
     const { name, value } = action.payload;
+
     return {
       ...state,
       filters: {
@@ -82,12 +83,17 @@ const FilterReducer = (state: any, action: { type: string; payload?: any }) => {
 
   if (action.type === FILTER_PRODUCTS) {
     const { products, filters } = state;
-    let temp = [...products];
-    temp = products.filter((p: Product) => p?.category === filters.category);
-    console.log(temp);
+    // let temp = [...products];
+    // if (filters.category !== "all") {
+    //   temp = products.filter(
+    //     (p: Product) => p[action.payload.name] === filters[action.payload.value]
+    //   );
+    // }
+
+    // console.log(temp);
     return {
       ...state,
-      filteredProducts: temp,
+      // filteredProducts: temp,
     };
   }
 };

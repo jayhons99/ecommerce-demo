@@ -77,12 +77,15 @@ export const FilterContextProvider: React.FC<FiltersContextProps> = ({
       payload: value,
     });
   };
-  const updateFilters = (e: ChangeEvent<HTMLInputElement>) => {
+  const updateFilters = (e: any) => {
     const name = e.target.name;
     let value;
     if (e.target.name === "category") {
       value = e.target.textContent;
+    } else {
+      value = e.target.value;
     }
+
     dispatch({
       type: UPDATE_FILTERS,
       payload: {

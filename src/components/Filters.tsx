@@ -48,6 +48,41 @@ const Filters = () => {
               })}
             </div>
           </div>
+          {/* companies */}
+          <div className="mb-5">
+            <h1 className="font-semibold tracking-wide">Company</h1>
+            <select
+              name="company"
+              value={filters?.company}
+              onChange={updateFilters}
+              className="capitalize rounded-md p-1 border-transparent"
+            >
+              {companies.map((c: any, i) => {
+                return (
+                  <option key={i} value={c}>
+                    {c}
+                  </option>
+                );
+              })}
+            </select>
+          </div>
+          {/* colors */}
+          <div className="mb-5">
+            <h1 className="font-semibold tracking-wide">
+              <div className="flex items-center">
+                {colors.map((c: any, i) => {
+                  return (
+                    <button
+                      key={i}
+                      name="color"
+                      style={{ backgroundColor: c }}
+                      className="w-4 h-4 rounded-full bg-[#222] border-none cursor-pointer opacity-50 flex items-center justify-center"
+                    ></button>
+                  );
+                })}
+              </div>
+            </h1>
+          </div>
         </form>
       </div>
     </>
