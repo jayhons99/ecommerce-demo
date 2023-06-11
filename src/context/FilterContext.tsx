@@ -79,13 +79,19 @@ export const FilterContextProvider: React.FC<FiltersContextProps> = ({
   };
   const updateFilters = (e: any) => {
     const name = e.target.name;
-    let value;
-    if (e.target.name === "category") {
+    let value = e.target.value;
+    if (name === "category") {
       value = e.target.textContent;
-    } else {
-      value = e.target.value;
     }
-
+    if (name === "color") {
+      value = e.target.dataset.color;
+    }
+    if (name === "price") {
+      value = Number(value);
+    }
+    if (name === "shipping") {
+      value = e.target.checked;
+    }
     dispatch({
       type: UPDATE_FILTERS,
       payload: {
@@ -95,7 +101,9 @@ export const FilterContextProvider: React.FC<FiltersContextProps> = ({
     });
   };
   const clearFilters = () => {
-    console.log("hi");
+    dispatch({
+      type: CLEAR_FILTERS,
+    });
   };
   return (
     <FilterContext.Provider

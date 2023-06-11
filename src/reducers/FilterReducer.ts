@@ -96,6 +96,21 @@ const FilterReducer = (state: any, action: { type: string; payload?: any }) => {
       // filteredProducts: temp,
     };
   }
+
+  if (action.type === CLEAR_FILTERS) {
+    return {
+      ...state,
+      filters: {
+        ...state.filters,
+        text: "",
+        company: "all",
+        category: "all",
+        color: "all",
+        price: state.filters.maxPrice,
+        shipping: false,
+      },
+    };
+  }
 };
 
 export default FilterReducer;

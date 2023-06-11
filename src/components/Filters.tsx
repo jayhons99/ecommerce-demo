@@ -55,7 +55,7 @@ const Filters = () => {
               name="company"
               value={filters?.company}
               onChange={updateFilters}
-              className="capitalize rounded-md p-1 border-transparent"
+              className="capitalize rounded-md p-1 border-transparent my-1"
             >
               {companies.map((c: any, i) => {
                 return (
@@ -68,22 +68,76 @@ const Filters = () => {
           </div>
           {/* colors */}
           <div className="mb-5">
-            <h1 className="font-semibold tracking-wide">
-              <div className="flex items-center">
-                {colors.map((c: any, i) => {
+            <h1 className="font-semibold tracking-wide">Colors</h1>
+            <div className="flex items-center my-1">
+              {colors.map((c: any, i) => {
+                if (c === "all") {
                   return (
                     <button
-                      key={i}
                       name="color"
-                      style={{ backgroundColor: c }}
-                      className="w-4 h-4 rounded-full bg-[#222] border-none cursor-pointer opacity-50 flex items-center justify-center"
-                    ></button>
+                      onClick={updateFilters}
+                      data-color="all"
+                      className={`${
+                        filters?.color === "all" ? "opacity-100" : "opacity-50"
+                      } flex items-center justify-center mr-2 border-r-2 pr-2 py-0 border-neutral-400`}
+                    >
+                      All
+                    </button>
                   );
-                })}
-              </div>
-            </h1>
+                }
+                return (
+                  <button
+                    key={i}
+                    name="color"
+                    style={{ backgroundColor: c }}
+                    className={`${
+                      filters?.color === c ? "opacity-100" : "opacity-50"
+                    } w-4 h-4 rounded-full bg-[#222] border-none cursor-pointer mr-2 flex items-center justify-center`}
+                    data-color={c}
+                    onClick={updateFilters}
+                  >
+                    {filters?.color === c && (
+                      <FaCheck className="text-white text-[0.5rem]" />
+                    )}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+          {/* price */}
+          <div className="mb-5">
+            <h1 className="font-semibold tracking-wide">Price</h1>
+            <p>{formatPrice(filters?.price as number)}</p>
+            <input
+              type="range"
+              name="price"
+              onChange={updateFilters}
+              value={filters?.price}
+              min={filters?.minPrice}
+              max={filters?.maxPrice}
+            />
+            {/* shipping */}
+            <div className="mb-5 grid grid-cols-[auto,1fr] items-center gap-x-2">
+              <label htmlFor="shipping">Free shipping</label>
+              <input
+                type="checkbox"
+                name="shipping"
+                id="shipping"
+                onChange={updateFilters}
+                checked={filters?.shipping}
+                className="max-w-[10%]"
+              />
+            </div>
           </div>
         </form>
+        {/* clear filters */}
+        <button
+          type="button"
+          className="bg-green-950/80 text-green-300 py-1 px-2 rounded-md transition-all hover:bg-green-300 hover:text-green-950/80"
+          onClick={clearFilters}
+        >
+          Clear Filters
+        </button>
       </div>
     </>
   );
