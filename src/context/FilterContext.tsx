@@ -2,6 +2,7 @@ import { useEffect, useReducer } from "react";
 import { useProductsContext } from "../hooks";
 import reducer from "../reducers/FilterReducer";
 import { FilterContext, initialFilterState } from "./";
+import { HTMLElementEvent } from "../types";
 import {
   LOAD_PRODUCTS,
   SET_GRIDVIEW,
@@ -51,20 +52,24 @@ export const FilterContextProvider: React.FC<FiltersContextProps> = ({
       payload: value,
     });
   };
-  const updateFilters = (e: any) => {
+  const updateFilters = (
+    e: HTMLElementEvent<
+      HTMLButtonElement | HTMLSelectElement | HTMLInputElement
+    >
+  ) => {
     const name = e.target.name;
-    let value = e.target.value;
+    let value: number | string | boolean = e.target.value;
     if (name === "category") {
-      value = e.target.textContent;
+      value = e.target.textContent || "";
     }
     if (name === "color") {
-      value = e.target.dataset.color;
+      value = e.target.dataset.color || "";
     }
     if (name === "price") {
       value = Number(value);
     }
     if (name === "shipping") {
-      value = e.target.checked;
+      value = (e.target as HTMLInputElement).checked;
     }
     dispatch({
       type: UPDATE_FILTERS,

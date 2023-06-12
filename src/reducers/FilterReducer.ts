@@ -82,19 +82,19 @@ const FilterReducer = (state: any, action: { type: string; payload?: any }) => {
 
   if (action.type === FILTER_PRODUCTS) {
     const { products, filters } = state;
-    const { text, category, company, color, price, shipping } = filters;
+    const { text, category, company, color, price, shipping } = filters || {};
     let temp = [...products];
     if (text) {
       temp = temp.filter((p) => p.name.toLowerCase().includes(text));
     }
-    if (filters.category != "all") {
-      temp = temp.filter((p) => p.category.toLowerCase() === category);
+    if (filters?.category != "all") {
+      temp = temp.filter((p) => p?.category?.toLowerCase() === category);
     }
-    if (filters.company != "all") {
+    if (filters?.company != "all") {
       temp = temp.filter((p) => p.company.toLowerCase() === company);
     }
-    if (filters.color != "all") {
-      temp = temp.filter((p) => p.colors.includes(color));
+    if (filters?.color != "all") {
+      temp = temp.filter((p) => p?.colors?.includes(color));
     }
     temp = temp.filter((p) => p.price <= price);
     if (shipping) {

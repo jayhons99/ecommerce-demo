@@ -59,3 +59,7 @@ export interface ProductContextType {
   singleProductError: boolean;
   singleProduct: Product;
 }
+
+export type HTMLElementEvent<T extends HTMLElement> = Event & {
+  target: T;
+};
