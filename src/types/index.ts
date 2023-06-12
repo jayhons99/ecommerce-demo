@@ -60,6 +60,13 @@ export interface ProductContextType {
   singleProduct: Product;
 }
 
+export interface CartContextType {
+  cart: [];
+  totalItems: number;
+  totalAmount: number;
+  shippingFees: number;
+}
+
 export type HTMLElementEvent<T extends HTMLElement> = Event & {
   target: T;
 };

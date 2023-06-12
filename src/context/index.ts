@@ -1,5 +1,9 @@
 import { createContext } from "react";
-import { FilterContextType, ProductContextType } from "../types";
+import {
+  CartContextType,
+  FilterContextType,
+  ProductContextType,
+} from "../types";
 export const initialFilterState: FilterContextType = {
   filteredProducts: [],
   products: [],
@@ -43,3 +47,11 @@ export const initialProductState = {
 
 export const ProductsContext =
   createContext<ProductContextType>(initialProductState);
+
+export const initialCartState: CartContextType = {
+  cart: [],
+  totalItems: 0,
+  totalAmount: 0,
+  shippingFees: 499,
+};
+export const CartContext = createContext(initialCartState);
