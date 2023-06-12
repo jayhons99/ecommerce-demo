@@ -5,10 +5,17 @@ import { FaCheck } from "react-icons/fa";
 import AmountButtons from "./AmountButtons";
 
 import { Product } from "../types";
+import { useCartContext } from "../hooks";
 
-const AddToCart: React.FC<Product> = ({ id, stock, colors }) => {
+interface AddToCartProps {
+  product: Product;
+}
+
+const AddToCart: React.FC<AddToCartProps> = ({ product }) => {
+  const { id, colors, stock } = product;
   const [mainColor, setMainColor] = useState(colors[0]);
   const [amount, setAmount] = useState(1);
+  const { addToCart } = useCartContext();
   const increase = () => {
     setAmount((prev) => {
       let temp = prev + 1;
@@ -55,6 +62,14 @@ const AddToCart: React.FC<Product> = ({ id, stock, colors }) => {
         <Link
           to="/cart"
           className="mt-4 py-[0.375rem] px-[0.75rem] tracking-wider inline-block font-semibold border-transparent text-base cursor-pointer bg-green-950/80 rounded-md text-green-300/80 hover:bg-green-400 hover:text-green-950/80"
+          onClick={() =>
+            addToCart(
+              id ?? "",
+              mainColor ?? "",
+              amount ?? 0,
+              product ?? undefined
+            )
+          }
         >
           Add To Cart
         </Link>

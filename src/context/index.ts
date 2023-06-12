@@ -2,6 +2,7 @@ import { createContext } from "react";
 import {
   CartContextType,
   FilterContextType,
+  Product,
   ProductContextType,
 } from "../types";
 export const initialFilterState: FilterContextType = {
@@ -53,5 +54,18 @@ export const initialCartState: CartContextType = {
   totalItems: 0,
   totalAmount: 0,
   shippingFees: 499,
+  addToCart: function (
+    id: string,
+    color: string,
+    amount: number,
+    product: Product
+  ): void {
+    if (!(id && color && amount && product)) {
+      throw new Error("Function not implemented.");
+    }
+  },
+  removeItem: function (id: string): void {
+    throw new Error("Function not implemented");
+  },
 };
 export const CartContext = createContext(initialCartState);

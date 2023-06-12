@@ -8,6 +8,7 @@ import {
   CLEAR_CART,
   COUNT_CART_TOTALS,
 } from "../actions";
+import { Product } from "../types";
 
 interface CartProviderProps {
   children: React.ReactNode;
@@ -15,8 +16,20 @@ interface CartProviderProps {
 
 export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialCartState);
+  // add to cart
+  const addToCart = (
+    id: string,
+    color: string,
+    amount: number,
+    product: Product
+  ) => {
+    dispatch({
+      type: ADD_TO_CART,
+      payload: { id, color, amount, product },
+    });
+  };
   return (
-    <CartContext.Provider value={{ ...state }}>
+    <CartContext.Provider value={{ ...state, addToCart }}>
       {children};
     </CartContext.Provider>
   );

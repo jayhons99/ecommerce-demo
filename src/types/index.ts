@@ -61,12 +61,29 @@ export interface ProductContextType {
 }
 
 export interface CartContextType {
-  cart: [];
+  cart: CartItem[];
   totalItems: number;
   totalAmount: number;
   shippingFees: number;
+  addToCart: (
+    id: string,
+    color: string,
+    amount: number,
+    product: Product
+  ) => void;
+  removeItem: (id: string) => void;
 }
 
 export type HTMLElementEvent<T extends HTMLElement> = Event & {
   target: T;
 };
+
+export interface CartItem {
+  id: string;
+  name: string;
+  color: string;
+  amount: number;
+  image: string;
+  price: number;
+  max: number;
+}
