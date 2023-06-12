@@ -21,6 +21,7 @@ export interface Product {
   image: string;
   category?: string;
   images?: ProductImage[];
+  shipping?: boolean;
 }
 
 export interface FilterContextType {

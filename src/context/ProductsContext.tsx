@@ -1,4 +1,4 @@
-import { createContext, useReducer, useEffect } from "react";
+import { useReducer, useEffect } from "react";
 import axios from "axios";
 import productsReducer from "../reducers/ProductsReducer";
 import {
@@ -12,39 +12,15 @@ import {
   GET_SINGLE_PRODUCT_SUCCESS,
 } from "../actions";
 import { products_url as allProductsUrl } from "../utils/constants";
-import { ProductContextType } from "../types";
+import { initialProductState, ProductsContext } from "./";
 interface ProductsContextProps {
   children: React.ReactNode;
 }
 
-const initialState = {
-  isSidebarOpen: false,
-  allProductsLoading: false,
-  allProductsError: false,
-  allProducts: [],
-  featuredProducts: [],
-  singleProductLoading: false,
-  singleProductError: false,
-  singleProduct: {
-    id: "",
-    name: "",
-    colors: [],
-    price: 0,
-    description: "",
-    stock: 0,
-    stars: 0,
-    reviews: 0,
-    company: "",
-    image: "",
-  },
-};
-
-export const ProductsContext = createContext<ProductContextType>(initialState);
-
 export const ProductsContextProvider: React.FC<ProductsContextProps> = ({
   children,
 }) => {
-  const [state, dispatch] = useReducer(productsReducer, initialState);
+  const [state, dispatch] = useReducer(productsReducer, initialProductState);
   const closeSidebar = () => {
     dispatch({
       type: SIDEBAR_CLOSE,

@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import {
   LOAD_PRODUCTS,
   SET_GRIDVIEW,
@@ -10,7 +9,6 @@ import {
   CLEAR_FILTERS,
 } from "../actions";
 import { Product } from "../types";
-// import { matchString } from "../utils/helpers";
 
 const FilterReducer = (state: any, action: { type: string; payload?: any }) => {
   if (action.type === LOAD_PRODUCTS) {
@@ -23,6 +21,7 @@ const FilterReducer = (state: any, action: { type: string; payload?: any }) => {
       filters: {
         ...state.filters,
         maxPrice: max,
+        price: max,
       },
     };
   }
@@ -83,7 +82,25 @@ const FilterReducer = (state: any, action: { type: string; payload?: any }) => {
 
   if (action.type === FILTER_PRODUCTS) {
     const { products, filters } = state;
-    // let temp = [...products];
+    const { text, category, company, color, price, shipping } = filters;
+    let temp = [...products];
+    if (text) {
+      temp = temp.filter((p) => p.name.toLowerCase().includes(text));
+    }
+    if (filters.category != "all") {
+      temp = temp.filter((p) => p.category.toLowerCase() === category);
+    }
+    if (filters.company != "all") {
+      temp = temp.filter((p) => p.company.toLowerCase() === company);
+    }
+    if (filters.color != "all") {
+      temp = temp.filter((p) => p.colors.includes(color));
+    }
+    temp = temp.filter((p) => p.price <= price);
+    if (shipping) {
+      temp = temp.filter((p) => p.shipping === shipping);
+    }
+
     // if (filters.category !== "all") {
     //   temp = products.filter(
     //     (p: Product) => p[action.payload.name] === filters[action.payload.value]
@@ -93,7 +110,7 @@ const FilterReducer = (state: any, action: { type: string; payload?: any }) => {
     // console.log(temp);
     return {
       ...state,
-      // filteredProducts: temp,
+      filteredProducts: temp,
     };
   }
 
