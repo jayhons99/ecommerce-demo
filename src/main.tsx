@@ -16,4 +16,4 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
       </FilterContextProvider>
     </ProductsContextProvider>
   </React.StrictMode>
-);
+)

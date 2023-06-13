@@ -1,6 +1,6 @@
 // @ts-nocheck
 
-import { Product } from "../types";
+import { CartItem, Product } from "../types";
 
 export const formatPrice: (price: number) => string = (price: number) => {
   const formatted = Intl.NumberFormat("en-US", {
@@ -17,3 +17,12 @@ export const getUniqueValues = (data: Product[], type: string) => {
   }
   return ["all", ...new Set(unique)];
 };
+
+export const getLocalStorage: () => CartItem[] = () => {
+  const cart = localStorage.getItem('cart');
+  if (cart) {
+    return JSON.parse(cart);
+  } else {
+    return [];
+  }
+}

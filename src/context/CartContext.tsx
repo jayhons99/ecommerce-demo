@@ -1,11 +1,11 @@
-import { useReducer } from "react";
+import { useEffect, useReducer } from "react";
 import { CartContext, initialCartState } from ".";
 import reducer from "../reducers/CartReducer";
 import {
   ADD_TO_CART,
   // REMOVE_CART_ITEM,
   // TOGGLE_CART_ITEM_AMOUNT,
-  // CLEAR_CART,
+  CLEAR_CART,
   // COUNT_CART_TOTALS,
 } from "../actions";
 import { Product } from "../types";
@@ -28,9 +28,19 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
       payload: { id, color, amount, product },
     });
   };
+  // const removeItem(id: string) => {}
+  // const toggleAmount = (id: string, value: number) => {}
+  const clearCart = () => {
+    dispatch({
+      type: CLEAR_CART
+    })
+  }
+  useEffect(() => {
+    localStorage.setItem('cart', JSON.stringify(state.cart));
+  }, [state.cart])
   return (
-    <CartContext.Provider value={{ ...state, addToCart }}>
-      {children};
+    <CartContext.Provider value={{ ...state, addToCart, clearCart }}>
+      {children}
     </CartContext.Provider>
   );
 };

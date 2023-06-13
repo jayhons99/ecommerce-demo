@@ -5,6 +5,7 @@ import {
   Product,
   ProductContextType,
 } from "../types";
+import { getLocalStorage } from "../utils/helpers";
 export const initialFilterState: FilterContextType = {
   filteredProducts: [],
   products: [],
@@ -52,7 +53,7 @@ export const ProductsContext =
   createContext<ProductContextType>(initialProductState);
 
 export const initialCartState: CartContextType = {
-  cart: [],
+  cart: getLocalStorage(),
   totalItems: 0,
   totalAmount: 0,
   shippingFees: 499,
@@ -70,5 +71,6 @@ export const initialCartState: CartContextType = {
     console.log(id);
     throw new Error("Function not implemented");
   },
+  clearCart: () => {throw new Error("Function not implemented")}
 };
 export const CartContext = createContext(initialCartState);

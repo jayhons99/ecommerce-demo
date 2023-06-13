@@ -3,15 +3,17 @@ import {
   ADD_TO_CART,
   // REMOVE_CART_ITEM,
   // TOGGLE_CART_ITEM_AMOUNT,
-  // CLEAR_CART,
+  CLEAR_CART,
   // COUNT_CART_TOTALS,
 } from "../actions";
 import { CartContextType, CartItem, Product } from "../types";
 
-type CartAction = {
+type CartAction =
+| {
   type: "ADD_TO_CART";
   payload: { id: string; color: string; amount: number; product: Product };
-};
+}
+| { type: "CLEAR_CART" };
 
 const CartReducer: Reducer<CartContextType, CartAction> = (
   state: CartContextType,
@@ -44,6 +46,14 @@ const CartReducer: Reducer<CartContextType, CartAction> = (
         max: product.stock,
       };
       return { ...state, cart: [...state.cart, itemToAdd] };
+    }
+  }
+  if (action.type === CLEAR_CART) {
+    return {
+      ...state,
+      cart: [],
+      totalAmount: 0,
+      totalItems: 0
     }
   }
   return state;

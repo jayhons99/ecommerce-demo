@@ -76,6 +76,7 @@ export interface CartContextType {
     product: Product
   ) => void;
   removeItem: (id: string) => void;
+  clearCart: () => void;
 }
 
 export type HTMLElementEvent<T extends HTMLElement> = Event & {
