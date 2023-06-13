@@ -24,7 +24,7 @@ const FeaturedProducts = () => {
       </div>
       <div className="w-[90vw] my-16 mx-auto max-w-[1170px] lg:w-[95vw] grid gap-10 md:grid-cols-[repeat(auto-fit,minmax(360px,1fr))]">
         {featured.slice(0, 3).map((product) => {
-          return <Product image={""} key={product.id} {...product} />;
+          return <Product key={product.id} {...product} />;
         })}
       </div>
     </div>
