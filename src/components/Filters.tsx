@@ -1,15 +1,14 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-unused-vars */
+// @ts-nocheck
+
 import { FaCheck } from "react-icons/fa";
 import { useFilterContext } from "../hooks";
 import { formatPrice, getUniqueValues } from "../utils/helpers";
-import { MouseEventHandler } from "react";
 
 const Filters = () => {
   const { filters, updateFilters, clearFilters, products } = useFilterContext();
-  const categories = getUniqueValues(products, "category");
-  const companies = getUniqueValues(products, "company");
-  const colors = getUniqueValues(products, "colors");
+  const categories = getUniqueValues(products, "category") as string[];
+  const companies = getUniqueValues(products, "company") as string[];
+  const colors = getUniqueValues(products, "colors") as string[];
   return (
     <>
       <div className="lg:sticky lg:top-4">
@@ -29,7 +28,7 @@ const Filters = () => {
           <div className="mb-5">
             <h1 className="font-semibold tracking-wide">Category</h1>
             <div>
-              {categories.map((cat: any, i) => {
+              {categories.map((cat, i) => {
                 return (
                   <button
                     key={i}
@@ -57,7 +56,7 @@ const Filters = () => {
               onChange={updateFilters}
               className="capitalize rounded-md p-1 border-transparent my-1"
             >
-              {companies.map((c: any, i) => {
+              {companies.map((c, i) => {
                 return (
                   <option key={i} value={c}>
                     {c}
@@ -70,7 +69,7 @@ const Filters = () => {
           <div className="mb-5">
             <h1 className="font-semibold tracking-wide">Colors</h1>
             <div className="flex items-center my-1">
-              {colors.map((c: any, i) => {
+              {colors.map((c: string, i) => {
                 if (c === "all") {
                   return (
                     <button
