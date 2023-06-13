@@ -32,6 +32,7 @@ export const initialProductState = {
   featuredProducts: [],
   singleProductLoading: false,
   singleProductError: false,
+  images: [],
   singleProduct: {
     id: "",
     name: "",
@@ -41,6 +42,7 @@ export const initialProductState = {
     stock: 0,
     stars: 0,
     reviews: 0,
+    images: [],
     company: "",
     image: "",
   },
@@ -65,6 +67,7 @@ export const initialCartState: CartContextType = {
     }
   },
   removeItem: function (id: string): void {
+    console.log(id);
     throw new Error("Function not implemented");
   },
 };

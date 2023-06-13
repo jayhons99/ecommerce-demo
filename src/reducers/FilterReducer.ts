@@ -1,3 +1,5 @@
+import { Reducer } from "react";
+
 import {
   LOAD_PRODUCTS,
   SET_GRIDVIEW,
@@ -8,20 +10,36 @@ import {
   FILTER_PRODUCTS,
   CLEAR_FILTERS,
 } from "../actions";
-import { Product } from "../types";
+import { FilterContextType, Product } from "../types";
 
-const FilterReducer = (state: any, action: { type: string; payload?: any }) => {
+export type FilterAction =
+  | { type: "LOAD_PRODUCTS"; payload: Product[] }
+  | { type: "SET_GRIDVIEW" }
+  | { type: "SET_LISTVIEW" }
+  | { type: "UPDATE_SORT"; payload: string }
+  | { type: "SORT_PRODUCTS" }
+  | {
+      type: "UPDATE_FILTERS";
+      payload: { name: string; value: string | number | boolean };
+    }
+  | { type: "FILTER_PRODUCTS" }
+  | { type: "CLEAR_FILTERS" };
+
+const FilterReducer: Reducer<FilterContextType, FilterAction> = (
+  state: FilterContextType,
+  action: FilterAction
+) => {
   if (action.type === LOAD_PRODUCTS) {
-    let max = action.payload.map((product: Product) => product.price);
-    max = Math.max(...max);
+    const max = action.payload.map((product: Product) => product.price);
+    const maxPrice = Math.max(...max);
     return {
       ...state,
       products: [...action.payload],
       filteredProducts: [...action.payload],
       filters: {
         ...state.filters,
-        maxPrice: max,
-        price: max,
+        maxPrice: maxPrice,
+        price: maxPrice,
       },
     };
   }
@@ -128,6 +146,7 @@ const FilterReducer = (state: any, action: { type: string; payload?: any }) => {
       },
     };
   }
+  throw new Error("Invalid action");
 };
 
 export default FilterReducer;

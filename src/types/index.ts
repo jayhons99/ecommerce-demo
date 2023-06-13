@@ -20,7 +20,7 @@ export interface Product {
   company: string;
   image: string;
   category?: string;
-  images?: ProductImage[];
+  images: ProductImage[];
   shipping?: boolean;
 }
 
@@ -31,10 +31,14 @@ export interface FilterContextType {
   displayGrid?: () => void;
   displayList?: () => void;
   updateSort?: (e: React.ChangeEvent<HTMLSelectElement>) => void;
-  updateFilters?: (e: any) => void;
+  updateFilters?: (
+    e: HTMLElementEvent<
+      HTMLButtonElement | HTMLSelectElement | HTMLInputElement
+    >
+  ) => void;
   clearFilters?: () => void;
-  sort?: string;
-  filters?: {
+  sort: string;
+  filters: {
     text: string;
     company: string;
     category: string;

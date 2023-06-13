@@ -1,13 +1,22 @@
+import { Reducer } from "react";
 import {
   ADD_TO_CART,
-  REMOVE_CART_ITEM,
-  TOGGLE_CART_ITEM_AMOUNT,
-  CLEAR_CART,
-  COUNT_CART_TOTALS,
+  // REMOVE_CART_ITEM,
+  // TOGGLE_CART_ITEM_AMOUNT,
+  // CLEAR_CART,
+  // COUNT_CART_TOTALS,
 } from "../actions";
-import { CartItem } from "../types";
+import { CartContextType, CartItem, Product } from "../types";
 
-const CartReducer = (state: any, action: { type: string; payload?: any }) => {
+type CartAction = {
+  type: "ADD_TO_CART";
+  payload: { id: string; color: string; amount: number; product: Product };
+};
+
+const CartReducer: Reducer<CartContextType, CartAction> = (
+  state: CartContextType,
+  action: CartAction
+) => {
   if (action.type === ADD_TO_CART) {
     const { id, color, amount, product } = action.payload;
     const temp = state.cart.find((i: CartItem) => i.id === id + color);

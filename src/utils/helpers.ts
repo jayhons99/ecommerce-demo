@@ -9,9 +9,10 @@ export const formatPrice: (price: number) => string = (price: number) => {
 };
 
 export const getUniqueValues = (data: Product[], type: string) => {
-  let unique = data.map((product) => product[type as keyof Product]);
+  const unique = data.map((product) => product[type as keyof Product]);
+  let flattened;
   if (type === "colors") {
-    unique = unique.flat() as any;
+    flattened = unique.flat();
   }
-  return ["all", ...new Set(unique)];
+  return ["all", ...new Set(flattened)];
 };
