@@ -36,6 +36,7 @@ export interface FilterContextType {
       HTMLButtonElement | HTMLSelectElement | HTMLInputElement
     >
   ) => void;
+  updateSearch?: (e: React.FormEvent<HTMLInputElement>) => void;
   clearFilters?: () => void;
   sort: string;
   filters: {

@@ -3,11 +3,10 @@
 import { FaCheck } from "react-icons/fa";
 import { useFilterContext } from "../hooks";
 import { formatPrice, getUniqueValues } from "../utils/helpers";
-import { MouseEventHandler } from "react";
 
 const Filters = () => {
   const { filters, updateFilters, clearFilters, products } = useFilterContext();
-  const categories = getUniqueValues(products, "category");
+  const categories = getUniqueValues(products, "category") as string[];
   const companies = getUniqueValues(products, "company");
   const colors = getUniqueValues(products, "colors");
   return (
@@ -29,7 +28,7 @@ const Filters = () => {
           <div className="mb-5">
             <h1 className="font-semibold tracking-wide">Category</h1>
             <div>
-              {categories.map((cat: any, i) => {
+              {categories.map((cat: string, i) => {
                 return (
                   <button
                     key={i}
@@ -40,6 +39,7 @@ const Filters = () => {
                     } capitalize block my-1 mx-0 py-1 px-0 bg-transparent tracking-wide text-green-950`}
                     onClick={updateFilters}
                     name="category"
+                    value={cat}
                     type="button"
                   >
                     {cat as string}

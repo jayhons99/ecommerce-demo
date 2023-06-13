@@ -1,4 +1,4 @@
-import { useEffect, useReducer } from "react";
+import { ChangeEventHandler, useEffect, useReducer } from "react";
 import { useProductsContext } from "../hooks";
 import reducer from "../reducers/FilterReducer";
 import { FilterContext, initialFilterState } from "./";
@@ -79,6 +79,19 @@ export const FilterContextProvider: React.FC<FiltersContextProps> = ({
       },
     });
   };
+  // const updateSearch = (e: React.FormEvent<HTMLInputElement>) => {
+  //   const { name, value } = e.target as HTMLInputElement;
+  //   dispatch({
+  //     type: UPDATE_FILTERS,
+  //     payload: {
+  //       name,
+  //       value,
+  //     },
+  //   });
+  // };
+
+  // const updateCategory = (e: React.MouseEvent<HTMLButtonElement>) => {
+  // console.log(e);
   const clearFilters = () => {
     dispatch({
       type: CLEAR_FILTERS,
