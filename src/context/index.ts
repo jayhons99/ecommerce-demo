@@ -71,6 +71,11 @@ export const initialCartState: CartContextType = {
     console.log(id);
     throw new Error("Function not implemented");
   },
-  clearCart: () => {throw new Error("Function not implemented")}
+  clearCart: () => {throw new Error("Function not implemented")},
+  toggleAmount: function (id: string, product: number) {
+     if (!id || !product) {
+       throw new Error("Function not implemented");
+     }
+  }
 };
 export const CartContext = createContext(initialCartState);
