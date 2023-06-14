@@ -45,7 +45,6 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
       payload: { id, amount }
     })
   }
-  const calculateTotalPrice = 
   useEffect(() => {
     localStorage.setItem('cart', JSON.stringify(state.cart));
   }, [state.cart])
