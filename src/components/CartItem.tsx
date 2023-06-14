@@ -20,7 +20,7 @@ const CartItem: React.FC<CartType> = ({...cart}) => {
   }, [itemQuantity])
   return (
     <>
-    <div className="grid grid-cols-[200px,1fr,1fr,1fr,1fr] gap-x-8 my-4 items-center">
+    <div className="flex flex-col items-start gap-y-4 lg:grid grid-cols-[200px,1fr,1fr,1fr,1fr] gap-x-8 my-4 lg:items-center">
       <div className="flex flex-col">
         <Link to={`/products/${cart.id}`}>
           <img src={cart.image} className="rounded-md w-full object-cover h-[100px] cursor-pointer" />
@@ -32,8 +32,9 @@ const CartItem: React.FC<CartType> = ({...cart}) => {
         </button>
         </span>
       </div>
+
       <h1 className="h-[16px] w-[16px] rounded-full" style={{ backgroundColor: `${cart.color}`}}></h1>
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between gap-x-4 lg:justify-start">
         <button onClick={() => setItemQuantity(prev => prev - 1)} className="bg-green-950/80 text-green-300/80 rounded-md px-1">
           <AiOutlineMinus />
         </button>
@@ -42,8 +43,8 @@ const CartItem: React.FC<CartType> = ({...cart}) => {
           <AiOutlinePlus />
         </button>
       </div>
-      <h1>{formatPrice(cart.price)}</h1>
-      <h1>{formatPrice((cart.price * cart.amount))}</h1>
+      <h1><span className="lg:hidden font-semibold tracking-wide">Price: </span>{formatPrice(cart.price)}</h1>
+      <h1><span className="lg:hidden font-semibold tracking-wide">Total: </span>{formatPrice((cart.price * cart.amount))}</h1>
     </div>
     <hr className="border-1 border-green-950/80" />
     </>

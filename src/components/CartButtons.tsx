@@ -4,7 +4,7 @@ import { useProductsContext, useCartContext} from "../hooks";
 
 const CartButtons = () => {
   const { closeSidebar } = useProductsContext();
-  const { cart } = useCartContext();
+  const { totalItems } = useCartContext();
   return (
     <>
       <div className="grid grid-cols-2 items-center w-[225px] ml-8">
@@ -17,7 +17,7 @@ const CartButtons = () => {
           <span className="text-green-500 flex items-center relative ml-[8px]">
             <FaShoppingCart />
             <span className="absolute top-[-10px] right-[-16px] bg-green-950 w-[16px] h-[16px] flex items-center justify-center rounded-full p-[12px] text-sm">
-              {cart.length}
+              {totalItems}
             </span>
           </span>
         </Link>
