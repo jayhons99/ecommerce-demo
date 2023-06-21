@@ -1,12 +1,10 @@
 import { Reducer } from "react";
 import {
   ADD_TO_CART,
-  // REMOVE_CART_ITEM,
-  // TOGGLE_CART_ITEM_AMOUNT,
   CLEAR_CART,
   REMOVE_CART_ITEM,
   TOGGLE_CART_ITEM_AMOUNT,
-  // COUNT_CART_TOTALS,
+  COUNT_CART_TOTALS,
 } from "../actions";
 import { CartContextType, CartItem, Product } from "../types";
 
@@ -18,6 +16,7 @@ type CartAction =
 | { type: "CLEAR_CART" }
 | { type: "REMOVE_CART_ITEM"; payload: {id: string}}
 | { type: "TOGGLE_CART_ITEM_AMOUNT"; payload: {id: string, amount: number} }
+| { type: "COUNT_CART_TOTALS"; }
 
 const CartReducer: Reducer<CartContextType, CartAction> = (
   state: CartContextType,
@@ -106,6 +105,14 @@ const CartReducer: Reducer<CartContextType, CartAction> = (
       }
     } else {
       return {...state};
+    }
+  }
+  if (action.type === COUNT_CART_TOTALS) {
+    const { cart } = state;
+    const total = cart.map((c:CartItem) => c.amount * c.price).reduce((prev, current) => prev + current, 0);
+    return {
+      ...state,
+      totalAmount: total
     }
   }
   return state;

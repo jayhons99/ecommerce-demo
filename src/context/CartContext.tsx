@@ -6,7 +6,7 @@ import {
   REMOVE_CART_ITEM,
   CLEAR_CART,
   TOGGLE_CART_ITEM_AMOUNT,
-  // COUNT_CART_TOTALS,
+  COUNT_CART_TOTALS,
 } from "../actions";
 import { Product } from "../types";
 
@@ -45,9 +45,17 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
       payload: { id, amount }
     })
   }
+  const calculateTotal = () => {
+    dispatch({
+      type: COUNT_CART_TOTALS
+    })
+  }
   useEffect(() => {
     localStorage.setItem('cart', JSON.stringify(state.cart));
   }, [state.cart])
+  useEffect(() => {
+    calculateTotal();
+  }, [state.cart]);
   return (
     <CartContext.Provider value={{ ...state, addToCart, clearCart, removeItem, toggleAmount }}>
       {children}
