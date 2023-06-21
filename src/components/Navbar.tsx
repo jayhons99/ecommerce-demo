@@ -29,7 +29,7 @@ const Navbar = () => {
                 <li key={link.id} className="my-0 mx-2">
                   <Link
                     to={link.url}
-                    className="text-neutral-500 font-bold text-lg p-2 transition hover:border-b-2 hover:border-solid hover:border-green-500"
+                    className="text-green-950/80 font-bold text-lg p-2 transition hover:border-b-2 hover:border-solid hover:border-green-500"
                   >
                     {link.text}
                   </Link>
