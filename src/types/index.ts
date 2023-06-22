@@ -1,3 +1,5 @@
+import { AppState, LogoutOptions, RedirectLoginOptions, User } from "@auth0/auth0-react";
+
 export interface ProductImage {
   filename: string;
   height: number;
@@ -92,4 +94,10 @@ export interface CartItem {
   image: string;
   price: number;
   max: number;
+}
+
+export interface UserContextType {
+  myUser: User | null;
+  loginWithRedirect?: (options?: RedirectLoginOptions<AppState> | undefined) => Promise<void>;
+  logout?: (options?: LogoutOptions | undefined) => void
 }

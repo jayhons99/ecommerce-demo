@@ -4,10 +4,11 @@ import { Link } from "react-router-dom";
 import { links } from "../utils/constants";
 import logo from "../assets/logo.svg";
 import CartButtons from "./CartButtons";
-import { useProductsContext } from "../hooks";
+import { useProductsContext, useUserContext } from "../hooks";
 
 const Navbar = () => {
   const { openSidebar } = useProductsContext();
+  const { myUser } = useUserContext();
   return (
     <>
       <div className="h-20 sticky top-0 z-[999] bg-primary flex items-center justify-center">
@@ -36,6 +37,16 @@ const Navbar = () => {
                 </li>
               );
             })}
+            { myUser && 
+              <li className="my-0 mx-2">
+                <Link
+                  to="/checkout"
+                  className="text-green-950/80 font-bold text-lg p-2 transition hover:border-b-2 hover:border-solid hover:border-green-500"
+                >
+                  Checkout
+                </Link>
+              </li>
+            }
           </ul>
           <div className="hidden lg:inline-flex">
             <CartButtons />

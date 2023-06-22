@@ -1,12 +1,16 @@
-import { FaShoppingCart, FaUserPlus } from "react-icons/fa";
+import { FaShoppingCart, FaUserMinus, FaUserPlus } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import { useProductsContext, useCartContext} from "../hooks";
+import { useProductsContext, useCartContext, useUserContext} from "../hooks";
+import { MouseEventHandler } from "react";
+
 
 const CartButtons = () => {
   const { closeSidebar } = useProductsContext();
   const { totalItems } = useCartContext();
+  const { loginWithRedirect, logout, myUser } = useUserContext();
+  console.log(myUser);
   return (
-    <>
+    <> 
       <div className="grid grid-cols-2 items-center w-[225px] ml-8">
         <Link
           to="/cart"
@@ -21,15 +25,27 @@ const CartButtons = () => {
             </span>
           </span>
         </Link>
-        <button
-          type="button"
-          className="flex font-bold items-center text-green-950/80 bg-transparent border-transparent text-lg cursor-pointer ml-[5px] "
-        >
-          Login
-          <span className="text-green-500 ml-[8px]">
-            <FaUserPlus />
-          </span>
-        </button>
+        {!myUser ? 
+          <button
+            type="button"
+            className="flex font-bold items-center text-green-950/80 bg-transparent border-transparent text-lg cursor-pointer ml-[5px]"
+            onClick={loginWithRedirect as MouseEventHandler<HTMLButtonElement>}
+          >
+            Login 
+            <span className="text-green-500 ml-[8px]">
+              <FaUserPlus />
+            </span>
+          </button> : 
+          <button
+            type="button"
+            className="flex font-bold items-center text-green-950/80 bg-transparent border-transparent text-lg cursor-pointer ml-[5px]"
+            onClick={() => logout && logout({ logoutParams: { returnTo: window?.location?.origin}})}
+          >
+            Logout
+            <span className="text-green-500 ml-[8px]">
+              <FaUserMinus />
+            </span>
+          </button>}
       </div>
     </>
   );

@@ -4,8 +4,9 @@ import {
   FilterContextType,
   Product,
   ProductContextType,
+  UserContextType,
 } from "../types";
-import { getLocalStorage } from "../utils/helpers";
+import { getCartTotalFromStorage, getLocalStorage } from "../utils/helpers";
 export const initialFilterState: FilterContextType = {
   filteredProducts: [],
   products: [],
@@ -54,7 +55,7 @@ export const ProductsContext =
 
 export const initialCartState: CartContextType = {
   cart: getLocalStorage(),
-  totalItems: 0,
+  totalItems: getCartTotalFromStorage(),
   totalAmount: 0,
   shippingFees: 499,
   addToCart: function (
@@ -79,3 +80,9 @@ export const initialCartState: CartContextType = {
   }
 };
 export const CartContext = createContext(initialCartState);
+
+export const initialUserState: UserContextType = {
+  myUser: null,
+}
+
+export const UserContext = createContext(initialUserState);

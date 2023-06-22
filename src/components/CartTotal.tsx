@@ -1,9 +1,11 @@
 import { Link } from "react-router-dom";
-import { useCartContext } from "../hooks"
+import { useCartContext, useUserContext } from "../hooks"
 import { formatPrice } from "../utils/helpers";
+import { MouseEventHandler } from "react";
 
 const CartTotal = () => {
   const { totalAmount, shippingFees, totalItems } = useCartContext();
+  const { myUser, loginWithRedirect } = useUserContext();
   return (
     <div className="mt-4 w-50vw lg:max-w-[25vw]">
       <div>
@@ -20,7 +22,17 @@ const CartTotal = () => {
       </div>
       <hr className="border-green-950/80 mt-4" />
       <div className="mt-8">
-        <Link to="/checkout" className="px-4 py-2 bg-green-400 rounded-md text-green-950/80 transition-all hover:bg-green-500/80">Proceed to checkout</Link>
+        {myUser ?  
+          <Link to="/checkout" className="px-4 py-2 bg-green-400 rounded-md text-green-950/80 transition-all hover:bg-green-500/80">
+            Proceed to checkout
+          </Link> :
+          <button 
+            onClick={loginWithRedirect as MouseEventHandler<HTMLButtonElement>}
+            className="px-4 py-2 bg-green-400 rounded-md text-green-950/80 transition-all hover:bg-green-500/80"
+          >
+            Login first to checkout
+          </button>
+        }
       </div>
     </div>
   )

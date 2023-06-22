@@ -1,13 +1,14 @@
 import { Link } from "react-router-dom";
 import { FaTimes } from "react-icons/fa";
 import { links } from "../utils/constants";
-import { useProductsContext } from "../hooks";
+import { useProductsContext, useUserContext } from "../hooks";
 
 import logo from "../assets/logo.svg";
 import CartButtons from "./CartButtons";
 
 const Sidebar = () => {
   const { isSidebarOpen, closeSidebar } = useProductsContext();
+  const { myUser } = useUserContext();
   return (
     <>
       <div className="text-center">
@@ -33,11 +34,13 @@ const Sidebar = () => {
                 </li>
               );
             })}
+            {myUser &&
             <li>
               <Link to="/checkout" onClick={closeSidebar}>
                 Checkout
               </Link>
             </li>
+            }
           </ul>
           <CartButtons />
         </aside>

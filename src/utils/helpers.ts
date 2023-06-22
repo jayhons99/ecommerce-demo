@@ -26,3 +26,12 @@ export const getLocalStorage: () => CartItem[] = () => {
     return [];
   }
 }
+
+export const getCartTotalFromStorage: () => number = () => {
+  const total = localStorage.getItem("totalItems");
+  if (total) {
+    return JSON.parse(total);
+  } else {
+    return 0;
+  }
+}
