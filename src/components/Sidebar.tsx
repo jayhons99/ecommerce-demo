@@ -23,7 +23,7 @@ const Sidebar = () => {
               <FaTimes />
             </button>
           </div>
-          <ul className="mb-8 block text-left py-4 px-6 text-base text-neutral-500 transition-all tracking-wide">
+          <ul className="mb-8 block text-left py-4 px-6 text-base text-green-950/80 transition-all tracking-wide">
             {links.map((link) => {
               return (
                 <li key={link.id} className="mb-4">
