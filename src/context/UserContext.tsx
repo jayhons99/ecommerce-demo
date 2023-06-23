@@ -17,7 +17,7 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
             localStorage.setItem("isLoggedIn", "false");
             setMyUser(null);
         }
-    }, [isAuthenticated])
+    }, [isAuthenticated, user])
     return (
         <UserContext.Provider value={{ loginWithRedirect, logout, myUser, isAuthenticated}}>{children}</UserContext.Provider>
     )
