@@ -6,7 +6,7 @@ import { MouseEventHandler } from "react";
 
 const CartButtons = () => {
   const { closeSidebar } = useProductsContext();
-  const { totalItems } = useCartContext();
+  const { totalItems, clearCart } = useCartContext();
   const { loginWithRedirect, logout, myUser } = useUserContext();
   return (
     <> 
@@ -38,7 +38,11 @@ const CartButtons = () => {
           <button
             type="button"
             className="flex font-bold items-center text-green-950/80 bg-transparent border-transparent text-lg cursor-pointer ml-[5px]"
-            onClick={() => logout && logout({ logoutParams: { returnTo: window?.location?.origin}})}
+            onClick={() => {
+                clearCart()
+                logout && logout({ logoutParams: { returnTo: window?.location?.origin}})
+              }
+            }
           >
             Logout
             <span className="text-green-500 ml-[8px]">

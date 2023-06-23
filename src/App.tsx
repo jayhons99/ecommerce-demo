@@ -11,6 +11,7 @@ import {
 } from "./pages";
 import { Navbar, Footer, Sidebar, ScrollToTop, ProtectedRoute } from "./components";
 
+
 function App() {
   return (
     <>
