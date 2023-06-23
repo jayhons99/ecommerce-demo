@@ -19,6 +19,7 @@ import CartContent from "./CartContent";
 import CartColumns from "./CartColumns";
 import CartItem from "./CartItem";
 import CartTotal from "./CartTotal";
+import ProtectedRoute from "../pages/ProtectedRoute";
 
 export {
   Navbar,
@@ -41,5 +42,6 @@ export {
   CartContent,
   CartColumns,
   CartItem,
-  CartTotal
+  CartTotal,
+  ProtectedRoute
 };

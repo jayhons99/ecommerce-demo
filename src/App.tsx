@@ -9,7 +9,7 @@ import {
   ErrorPage,
   CheckoutPage,
 } from "./pages";
-import { Navbar, Footer, Sidebar, ScrollToTop } from "./components";
+import { Navbar, Footer, Sidebar, ScrollToTop, ProtectedRoute } from "./components";
 
 function App() {
   return (
@@ -25,7 +25,12 @@ function App() {
           <Route path="/products" element={<ProductsPage />} />
           <Route path="/products/:id" element={<SingleProductPage />} />
           {/* Wrap in Private Router later */}
-          <Route path="/checkout" element={<CheckoutPage />} />
+          <Route path="/checkout" element={
+            <ProtectedRoute>
+              <CheckoutPage />
+            </ProtectedRoute>
+          }
+          />
           <Route path="/*" element={<ErrorPage />} />
         </Routes>
         <Footer />

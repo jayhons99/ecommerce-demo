@@ -99,5 +99,6 @@ export interface CartItem {
 export interface UserContextType {
   myUser: User | null;
   loginWithRedirect?: (options?: RedirectLoginOptions<AppState> | undefined) => Promise<void>;
-  logout?: (options?: LogoutOptions | undefined) => void
+  logout?: (options?: LogoutOptions | undefined) => void;
+  isAuthenticated: boolean
 }

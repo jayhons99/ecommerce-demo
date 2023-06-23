@@ -35,3 +35,12 @@ export const getCartTotalFromStorage: () => number = () => {
     return 0;
   }
 }
+
+export const getAuthFromStorage: () => boolean = () => {
+  const isLoggedIn = localStorage.getItem("isLoggedIn");
+  if (isLoggedIn === "true") {
+    return true;
+  } else {
+    return false;
+  }
+}

@@ -8,7 +8,6 @@ const CartButtons = () => {
   const { closeSidebar } = useProductsContext();
   const { totalItems } = useCartContext();
   const { loginWithRedirect, logout, myUser } = useUserContext();
-  console.log(myUser);
   return (
     <> 
       <div className="grid grid-cols-2 items-center w-[225px] ml-8">

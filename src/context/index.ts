@@ -6,7 +6,7 @@ import {
   ProductContextType,
   UserContextType,
 } from "../types";
-import { getCartTotalFromStorage, getLocalStorage } from "../utils/helpers";
+import { getAuthFromStorage, getCartTotalFromStorage, getLocalStorage } from "../utils/helpers";
 export const initialFilterState: FilterContextType = {
   filteredProducts: [],
   products: [],
@@ -83,6 +83,7 @@ export const CartContext = createContext(initialCartState);
 
 export const initialUserState: UserContextType = {
   myUser: null,
+  isAuthenticated: getAuthFromStorage()
 }
 
 export const UserContext = createContext(initialUserState);

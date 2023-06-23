@@ -11,12 +11,14 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
     const { isAuthenticated, loginWithRedirect, logout, user } = useAuth0();
     useEffect(() => {
         if (isAuthenticated) {
+            localStorage.setItem("isLoggedIn", "true");
             setMyUser(user!);   
         } else {
+            localStorage.setItem("isLoggedIn", "false");
             setMyUser(null);
         }
-    }, [isAuthenticated, user])
+    }, [isAuthenticated])
     return (
-        <UserContext.Provider value={{ loginWithRedirect, logout, myUser}}>{children}</UserContext.Provider>
+        <UserContext.Provider value={{ loginWithRedirect, logout, myUser, isAuthenticated}}>{children}</UserContext.Provider>
     )
 }
