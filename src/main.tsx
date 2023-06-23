@@ -8,15 +8,14 @@ import { CartProvider } from "./context/CartContext.tsx";
 import { Auth0Provider } from "@auth0/auth0-react";
 import { UserProvider } from "./context/UserContext.tsx";
 
-
-// domain: dev-uuo8zxi45ha68mv5.us.auth0.com
-// clientId: AA0jLhKVhwgPbAHrTEFUsjrDI3EVgB6o
+const DOMAIN = import.meta.env.VITE_DOMAIN;
+const CLIENT_ID = import.meta.env.VITE_CLIENT_ID;
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
     <Auth0Provider 
-      domain="dev-uuo8zxi45ha68mv5.us.auth0.com"
-      clientId="AA0jLhKVhwgPbAHrTEFUsjrDI3EVgB6o"
+      domain={DOMAIN}
+      clientId={CLIENT_ID}
       authorizationParams={{
         redirect_uri: window.location.origin
       }}
