@@ -12,7 +12,7 @@ const CheckoutForm = () => {
     const { cart, totalAmount, totalItems, shippingFees, clearCart } = useCartContext();
     const { myUser } = useUserContext();
     // stripe implementation here
-    const [success, setSuccess] = useState(false);
+    const [success, setSuccess] = useState(true);
     const [error, setError] = useState(null);
     const [processing, setProcessing] = useState(null);
     const [disabled, setDisabled] = useState(true);
@@ -28,7 +28,7 @@ const CheckoutForm = () => {
                 fontSize: '16px',
                 '::placeholder': {
                     color: '#32325d'
-                },
+                }, 
             },
             invalid: {
                 color: '#fa755a',
@@ -37,7 +37,13 @@ const CheckoutForm = () => {
         }
     }
     const createPaymentIntent = async() => {
-        console.log("Hello");
+        try {
+            await axios.post('https://f1kr0l3d4b.execute-api.us-east-1.amazonaws.com/test/create-payment-intent', {
+                cart, totalAmount, shippingFees
+            }).then(res => console.log(res.data));
+        } catch(err) {
+            console.error(err);
+        }
     }
     useEffect(() => {
         createPaymentIntent();
@@ -55,6 +61,16 @@ const CheckoutForm = () => {
                         {processing ? <div className='animate-spin text-[8px] h-[16px] w-[16px] bg-white text-black flex justify-center items-center rounded-full'>Loading</div> : 'Pay'}
                     </span>
                 </button>
+                { error && <div className='card-error' role="alert">{error}</div> }
+                { success && (
+                    <p className={`${success ? 'result-message' : 'result-message hidden'}`}>
+                        Payment succeeded, see the result in your {" "}
+                        <a href={`https://dashboard.stripe.com/test/payments`} className='font-bold text-green-950/80 hover:underline'>
+                            Stripe dashboard. {" "}
+                        </a>
+                        Refresh the page to pay again.
+                    </p>
+                )}
             </form>
         </div>
     )
