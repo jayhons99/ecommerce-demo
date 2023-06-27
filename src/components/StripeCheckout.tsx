@@ -48,8 +48,10 @@ const CheckoutForm = () => {
         }
     }
     useEffect(() => {
-        createPaymentIntent();
-    }, [])
+        if (totalAmount) {
+            createPaymentIntent();
+        }
+    }, [totalAmount])
     // const handleChange = async(e) => {
 
     // }
