@@ -62,7 +62,7 @@ const CheckoutForm = () => {
                 <CardElement id='card-element' options={cardStyle} />
                 <button disabled={processing || disabled || success} id='submit' className='stripe-button'>
                     <span id='button-text'>
-                        {processing ? <div className='animate-spin text-[8px] h-[16px] w-[16px] bg-white text-black flex justify-center items-center rounded-full'>Loading</div> : 'Pay'}
+                        {processing ? <div className='spinner'>Loading</div> : 'Pay'}
                     </span>
                 </button>
                 { error && <div className='card-error' role="alert">{error}</div> }
