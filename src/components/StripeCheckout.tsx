@@ -6,14 +6,16 @@ import { CardElement, useStripe, Elements, useElements, PaymentElement, LinkAuth
 import axios from 'axios';
 // import { Navigate } from 'react-router-dom'; 
 import { useCartContext, useUserContext } from '../hooks';
+import { formatPrice } from '../utils/helpers';
 // import { formatPrice } from '../utils/helpers';
 
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY);
 
 const CheckoutForm = () => {
-    const { myUser } = useUserContext();
     // stripe implementation here
     const [success, setSuccess] = useState(true);
+    const { myUser } = useUserContext();
+    const { totalAmount, shippingFees } = useCartContext();
     const [error, setError] = useState(null);
     const [processing, setProcessing] = useState(null);
     const [disabled, setDisabled] = useState(true);
@@ -80,23 +82,20 @@ const CheckoutForm = () => {
     }
     return (
         <div>
-            <form className='stripe-form' id='payment-form'>
+            <div className='mb-4'>
+                <p>Hello, {myUser?.name}</p>
+                <p>Your total amount is <span className='font-bold'>{formatPrice(totalAmount)}</span></p>
+                <p>Shipping fees is <span className='font-bold'>{formatPrice(shippingFees)}</span></p>
+                <p>Your grand total is <span className='font-bold'>{formatPrice(totalAmount + shippingFees)}!</span></p>
+            </div>
+            <form className='stripe-form' id='payment-form' onSubmit={handleSubmit}>
                 <PaymentElement id="payment-element" options={paymentElementOptions} />
-                <button disabled={processing || disabled || success || isLoading } id='submit' className='stripe-button'>
+                <button disabled={isLoading || !stripe || !elements} id='submit' className='stripe-button'>
                     <span id='button-text'>
                         {processing ? <div className='spinner'>Loading</div> : 'Pay'}
                     </span>
                 </button>
-                { error && <div className='card-error' role="alert">{error}</div> }
-                { success && (
-                    <p className={`${success ? 'result-message' : 'result-message hidden'}`}>
-                        Payment succeeded, see the result in your {" "}
-                        <a href={`https://dashboard.stripe.com/test/payments`} className='font-bold text-green-950/80 hover:underline'>
-                            Stripe dashboard. {" "}
-                        </a>
-                        Refresh the page to pay again.
-                    </p>
-                )}
+                {message && <div id='payment-message'>{message}</div>}
             </form>
         </div>
     )
