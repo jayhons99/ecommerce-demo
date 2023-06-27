@@ -40,7 +40,7 @@ const CheckoutForm = () => {
         try {
             await axios.post('https://f1kr0l3d4b.execute-api.us-east-1.amazonaws.com/test/create-payment-intent', {
                 cart, totalAmount, shippingFees
-            }).then(res => console.log(res.data));
+            }).then(res => setClientSecret(res.data));
         } catch(err) {
             console.error(err);
         }
