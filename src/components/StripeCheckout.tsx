@@ -1,39 +1,34 @@
-// @ts-nocheck
-// temporary disable to allow build to deploy to amplify
 import { useEffect, useState } from "react";
-import { loadStripe } from "@stripe/stripe-js";
 import {
-  CardElement,
+  loadStripe,
+  StripePaymentElementOptions,
+  StripeElementsOptions,
+} from "@stripe/stripe-js";
+import {
   useStripe,
   Elements,
   useElements,
   PaymentElement,
-  LinkAuthenticationElement,
 } from "@stripe/react-stripe-js";
 import axios from "axios";
-// import { Navigate } from 'react-router-dom';
 import { useCartContext, useUserContext } from "../hooks";
 import { formatPrice } from "../utils/helpers";
-// import { formatPrice } from '../utils/helpers';
 
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY);
+const API_URL: string = import.meta.env.VITE_API_URL;
 
 const CheckoutForm = () => {
-  // stripe implementation here
-  const [success, setSuccess] = useState(true);
   const { myUser } = useUserContext();
   const { totalAmount, shippingFees } = useCartContext();
-  const [error, setError] = useState(null);
-  const [processing, setProcessing] = useState(null);
-  const [disabled, setDisabled] = useState(true);
-  const [email, setEmail] = useState("");
+  const [processing, setProcessing] = useState(false);
+  const [succeeded, setSucceeded] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState<string | undefined>("");
   const stripe = useStripe();
   const elements = useElements();
   const paymentElementOptions = {
     layout: "tabs",
-  };
+  } as StripePaymentElementOptions;
   useEffect(() => {
     if (!stripe) {
       return;
@@ -61,12 +56,9 @@ const CheckoutForm = () => {
       }
     });
   }, [stripe]);
-  // const handleChange = async(e) => {
-
-  // }
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
-
+    setProcessing(true);
     if (!stripe || !elements) {
       // disable form submission until stripe is loaded
       return;
@@ -76,35 +68,46 @@ const CheckoutForm = () => {
     const { error } = await stripe.confirmPayment({
       elements,
       confirmParams: {
-        return_url: window.location.host,
+        return_url: window.location.origin,
       },
     });
 
     if (error.type === "card_error" || error.type === "validation_error") {
       setMessage(error.message);
+      setProcessing(false);
     } else {
-      setMessage("An unexpected error occurred.");
+      setProcessing(false);
+      setSucceeded(true);
     }
     setIsLoading(false);
   };
   return (
     <div>
       <div className="mb-4">
-        <p>Hello, {myUser?.name}</p>
-        <p>
-          Your total amount is{" "}
-          <span className="font-bold">{formatPrice(totalAmount)}</span>
-        </p>
-        <p>
-          Shipping fees is{" "}
-          <span className="font-bold">{formatPrice(shippingFees)}</span>
-        </p>
-        <p>
-          Your grand total is{" "}
-          <span className="font-bold">
-            {formatPrice(totalAmount + shippingFees)}!
-          </span>
-        </p>
+        {succeeded ? (
+          <>
+            <p>Payment has been processed</p>
+            <p>Redirecting shortly...</p>
+          </>
+        ) : (
+          <>
+            <p>Hello, {myUser?.name}</p>
+            <p>
+              Your total amount is{" "}
+              <span className="font-bold">{formatPrice(totalAmount)}</span>
+            </p>
+            <p>
+              Shipping fees is{" "}
+              <span className="font-bold">{formatPrice(shippingFees)}</span>
+            </p>
+            <p>
+              Your grand total is{" "}
+              <span className="font-bold">
+                {formatPrice(totalAmount + shippingFees)}!
+              </span>
+            </p>
+          </>
+        )}
       </div>
       <form className="stripe-form" id="payment-form" onSubmit={handleSubmit}>
         <PaymentElement id="payment-element" options={paymentElementOptions} />
@@ -129,14 +132,11 @@ const StripeCheckout = () => {
   const createPaymentIntent = async () => {
     try {
       await axios
-        .post(
-          "https://f1kr0l3d4b.execute-api.us-east-1.amazonaws.com/test/create-payment-intent",
-          {
-            cart,
-            totalAmount,
-            shippingFees,
-          }
-        )
+        .post(API_URL, {
+          cart,
+          totalAmount,
+          shippingFees,
+        })
         .then((res) => setClientSecret(res.data));
     } catch (err) {
       console.error(err);
@@ -158,7 +158,7 @@ const StripeCheckout = () => {
   const options = {
     clientSecret,
     appearance,
-  };
+  } as StripeElementsOptions;
   return (
     <div className="flex justify-center content-center h-full w-full my-8">
       {clientSecret ? (
