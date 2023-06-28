@@ -79,6 +79,19 @@ export const FilterContextProvider: React.FC<FiltersContextProps> = ({
       },
     });
   };
+  const updateMobileFilters = (
+    e: HTMLElementEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
+    const name = e.target.name;
+    const value: number | string | boolean = e.target.value;
+    dispatch({
+      type: UPDATE_FILTERS,
+      payload: {
+        name,
+        value,
+      },
+    });
+  };
   const clearFilters = () => {
     dispatch({
       type: CLEAR_FILTERS,
@@ -93,6 +106,7 @@ export const FilterContextProvider: React.FC<FiltersContextProps> = ({
         updateSort,
         updateFilters,
         clearFilters,
+        updateMobileFilters,
       }}
     >
       {children}

@@ -1,4 +1,9 @@
-import { AppState, LogoutOptions, RedirectLoginOptions, User } from "@auth0/auth0-react";
+import {
+  AppState,
+  LogoutOptions,
+  RedirectLoginOptions,
+  User,
+} from "@auth0/auth0-react";
 
 export interface ProductImage {
   filename: string;
@@ -50,6 +55,9 @@ export interface FilterContextType {
     price: number;
     shipping: boolean;
   };
+  updateMobileFilters?: (
+    e: HTMLElementEvent<HTMLSelectElement | HTMLInputElement>
+  ) => void;
 }
 
 export interface ProductContextType {
@@ -98,7 +106,9 @@ export interface CartItem {
 
 export interface UserContextType {
   myUser: User | null;
-  loginWithRedirect?: (options?: RedirectLoginOptions<AppState> | undefined) => Promise<void>;
+  loginWithRedirect?: (
+    options?: RedirectLoginOptions<AppState> | undefined
+  ) => Promise<void>;
   logout?: (options?: LogoutOptions | undefined) => void;
-  isAuthenticated: boolean
+  isAuthenticated: boolean;
 }

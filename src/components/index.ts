@@ -21,6 +21,7 @@ import CartItem from "./CartItem";
 import CartTotal from "./CartTotal";
 import ProtectedRoute from "../pages/ProtectedRoute";
 import StripeCheckout from "./StripeCheckout";
+import MobileFilter from "./MobileFilter";
 
 export {
   Navbar,
@@ -45,5 +46,6 @@ export {
   CartItem,
   CartTotal,
   ProtectedRoute,
-  StripeCheckout
+  StripeCheckout,
+  MobileFilter,
 };
